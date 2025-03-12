@@ -12,15 +12,19 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 
-export default function () {
+export default function ({toggleSidebar, isVisible}) {
 
+  console.log(isVisible);
+  
   
   return (
-    <div className=' bg-slate-800 text-slate-50 
-    h-20 px-8 py-4 fixed top-0 left-0 right-0 shadow-lg ml-64 z-20'>
+    <div className={`dark:bg-slate-800 dark:text-slate-50 bg-white
+    h-20 px-8 py-4 fixed top-0 left-0 right-0 shadow-md ${isVisible ? 'lg:ml-64':''} ml-0 z-50`}>
       <div className='flex justify-between items-center'>
         {/*Icon  */}
-        <button ><AlignJustify className='text-green-600'/></button>
+        <button onClick={toggleSidebar}>
+          <AlignJustify className='text-green-600 hover:text-green-500'/>
+        </button>
         {/* 3 Icons */}
         <div className="flex space-x-3">
             <ThemeSwitcherButton/>
@@ -119,7 +123,7 @@ export default function () {
                     />
                   </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="pr-8 bg-slate-800">
+        <DropdownMenuContent className="pr-8 dark:bg-slate-800 bg-white">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>

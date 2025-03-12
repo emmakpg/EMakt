@@ -5,12 +5,6 @@ import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 
 export default function ModeToggle() {
   const { theme,setTheme } = useTheme()
@@ -20,7 +14,7 @@ export default function ModeToggle() {
     className={`dark:text-lime-500`}
     onClick={()=>setTheme(theme === "dark" ? "light":"dark")}
     >
-        {theme === "light" ? <Moon/> : <Sun/> }
+        {theme === "light" ? <Moon className="text-lime-700 hover:bg-slate-200 rounded-full"/> : <Sun className="text-lime-700 hover:bg-slate-700 rounded-full"/> }
 
     </button>
   )

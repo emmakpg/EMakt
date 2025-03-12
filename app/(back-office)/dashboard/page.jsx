@@ -14,7 +14,7 @@ const formattedDate = date.toFormat('d"th" MMMM, yyyy \'at\' h:mma');
   return (
     <div className=''>
       <Heading title="Dashboard Overview"/>
-      <h2 className='font-medium mt-4 px-4'>Your snapshot for today, 24th March 2025 (Accra / GMT)</h2>
+      <h2 className='font-medium mt-4 px-4 text-slate-950 dark:text-slate-50'>Your snapshot for today, 24th March 2025 (Accra / GMT)</h2>
       {/* Large Cards */}
       <LargeCards/>
       {/* Small cards */}

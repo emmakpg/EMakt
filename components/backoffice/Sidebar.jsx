@@ -1,46 +1,131 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { BookImage, LayoutDashboard, Settings, ShoppingBag, ShoppingBasket, ShoppingCart, User, Users, UsersRound } from 'lucide-react'
+import {ChevronDown, ChevronRight, Ellipsis, LayoutDashboard, LogOut, Settings, ShoppingBag, Slack, Truck, User, Users, UsersRound, Warehouse } from 'lucide-react'
 
-export default function Sidebar() {
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
+
+
+
+export default function Sidebar({isVisible,toggleSidebar}) {
+
+  const [isCatalogueOpen, setCatalogueOpen] = useState(false)
 
   const pathname = usePathname();
 
+  const catalogueList = [
+    {
+      title:"Products",
+      href:"/dashboard/products",
+    },
+    {
+      title:"Categories",
+      href:"/dashboard/categories",
+    },
+    {
+      title:"Attributes",
+      href:"/dashboard/attributes",
+    },
+    {
+      title:"Coupons",
+      href:"/dashboard/coupons",
+    },
+    {
+      title:"Store sliders",
+      href:"/dashboard/banners",
+    },
+  ]
+  
+  const handleItemClick = () => {
+    // Close sidebar only on mobile (< 768px)
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      toggleSidebar();
+    }
+  };
+  
   return (
-    <div className='bg-slate-700 space-y-6 w-64 h-screen text-slate-50 p-3 fixed left-0 top-0'>
+    <div className={`sm:block bg-slate-700 space-y-6 h-screen w-64 mt-20 sm:mt-0 text-slate-50 p-3 fixed left-0 top-0 transition-transform duration-300 z-30 overflow-y-auto
+      ${
+        !isVisible ? 'lg:hidden -translate-x-[100%] md:translate-x-0' : ''
+      }`
+    }
+    aria-hidden={!isVisible}
+    tabIndex={isVisible ? 0 : -1}
+    >
+    
         <Link className="mb-6" href='/'>Logo</Link>
         <div className='space-y-3 flex flex-col mt-16'>
         <Link 
           href="/dashboard" 
-          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors
-           ${pathname.includes("dashboard")
-              ? 'bg-slate-800 rounded'
+          onClick={handleItemClick}
+          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors 
+           ${pathname==="/dashboard"
+              ? 'bg-slate-800 rounded border-l-4 border-green-600'
               : 'text-slate-50'
             }
-          `} >
+          `}
+           >
         <LayoutDashboard className="w-4 h-4" />
         <span>Dashboard</span>
         </Link>
 
-        <Link 
+{/* Cataloge Dropdown menu */}
+    
+<Collapsible >
+  <CollapsibleTrigger>
+  <button 
+          onClick={() => setCatalogueOpen(!isCatalogueOpen)}
           href="/catalogue" 
-          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors
-            ${pathname.includes("dashboard")
-              ? 'bg-slate-800 rounded'
-              : 'text-slate-50'
-            }
+          className={`flex items-center space-x-3 pr-16 p-2 rounded hover:bg-slate-800 transition-colors 
           `} >  
-        <BookImage className="w-4 h-4" />
+        <Slack className="w-4 h-4" />
         <span>Catalogue</span>
+        {
+          isCatalogueOpen ? 
+          <ChevronDown className='ml-5 w-4 h-4'/>
+          :
+          <ChevronRight className='ml-5 w-4 h-4'/>
+        }
+        
+        </button>
+        </CollapsibleTrigger>
+        <CollapsibleContent 
+        onClick={handleItemClick} className="px-3 pl-6 bg-slate-800 rounded-lg py-3">
+            {
+              catalogueList.map((item,i) => (
+                <Link key={i}
+          href={item.href} 
+          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors text-sm py-1.5
+           ${pathname.includes(item.href)
+              ? 'bg-slate-800 rounded text-green-500'
+              : 'text-slate-50 flex items-center'
+            }
+          `}>
+        <Ellipsis className="w-4 h-4" />
+        <span>{item.title}</span>
         </Link>
+
+              )
+              )
+              
+            }
+        </CollapsibleContent>
+      </Collapsible>
+
+        
+
 
         <Link 
           href="/customers" 
-          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors
+          onClick={handleItemClick}
+          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors 
            ${pathname.includes("customers")
-              ? 'bg-slate-800 rounded'
+              ? 'bg-slate-800 rounded border-l-4 border-green-600'
               : 'text-slate-50'
             }
           `}>
@@ -50,21 +135,23 @@ export default function Sidebar() {
        
         <Link 
           href="/stores" 
-          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors
+          onClick={handleItemClick}
+          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors 
             ${pathname.includes("stores")
-              ? 'bg-slate-800 rounded'
+              ? 'bg-slate-800 rounded border-l-4 border-green-600'
               : 'text-slate-50'
             }
           `} >
-        <ShoppingBasket className="w-4 h-4" />
+        <Warehouse className="w-4 h-4" />
         <span>Stores</span>
         </Link>
 
         <Link 
           href="/merchants" 
-          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors
+          onClick={handleItemClick}
+          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors 
             ${pathname.includes("merchants")
-              ? 'bg-slate-800 rounded'
+              ? 'bg-slate-800 rounded border-l-4 border-green-600'
               : 'text-slate-50'
             }
           `} >
@@ -74,21 +161,23 @@ export default function Sidebar() {
 
         <Link 
           href="/orders" 
-          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors
+          onClick={handleItemClick}
+          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors 
            ${pathname.includes("orders")
-              ? 'bg-slate-800 rounded'
+              ? 'bg-slate-800 rounded border-l-4 border-green-600'
               : 'text-slate-50'
             }
           `} >
-        <ShoppingCart className="w-4 h-4" />
+        <Truck className="w-4 h-4" />
         <span>Orders</span>
         </Link>
 
         <Link 
           href="/staff" 
-          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors
+          onClick={handleItemClick}
+          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors 
            ${pathname.includes("staff")
-              ? 'bg-slate-800 rounded'
+              ? 'bg-slate-800 rounded border-l-4 border-green-600'
               : 'text-slate-50'
             }
           `} >
@@ -98,9 +187,10 @@ export default function Sidebar() {
        
         <Link 
           href="/online-store" 
+          onClick={handleItemClick}
           className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors
            ${pathname.includes("online-store")
-              ? 'bg-slate-800 rounded'
+              ? 'bg-slate-800 rounded border-l-4 border-green-600'
               : 'text-slate-50'
             }
           `} >
@@ -111,15 +201,25 @@ export default function Sidebar() {
 
         <Link 
           href="/settings" 
-          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors
+          onClick={handleItemClick}
+          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors 
            ${pathname.includes("settings")
-              ? 'bg-slate-800 rounded'
+              ? 'bg-slate-800 rounded border-l-4 border-green-600'
               : 'text-slate-50'
             }
           `} >
         <Settings className="w-4 h-4" />
         <span>Settings</span>
         </Link>
+
+        <div className='px-6 py-2'>
+          <button 
+          onClick={handleItemClick}
+          className='flex bg-green-500 items-center space-x-3 p-2 hover:bg-green-400 rounded-md transition-colors px-6 py-2'>
+            <LogOut/>
+            <span className='text-slate-50'>Log out</span>
+          </button>
+        </div>
        
         </div>
 
