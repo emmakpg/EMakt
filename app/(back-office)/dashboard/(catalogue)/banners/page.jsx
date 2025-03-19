@@ -1,8 +1,11 @@
 import React from 'react'
+import Heading from '@/components/backoffice/Heading';
 
 export const Banners = () => {
   return (
-    <div>Banners</div>
+    <div>
+        <Heading title='Banners'/>
+    </div>
   )
 }
 

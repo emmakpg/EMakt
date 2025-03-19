@@ -1,8 +1,10 @@
-import React from 'react'
+import Heading from "@/components/backoffice/Heading";
 
 export const Coupons = () => {
   return (
-    <div>Coupons</div>
+    <div>
+       <Heading title='Coupons'/>
+    </div>
   )
 }
 

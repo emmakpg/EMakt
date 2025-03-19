@@ -1,8 +1,11 @@
+import Heading from '@/components/backoffice/Heading';
 import React from 'react'
 
 export const Attributes = () => {
   return (
-    <div>Attributes</div>
+    <div>
+      <Heading title='Attributes'/>
+    </div>
   )
 }
 

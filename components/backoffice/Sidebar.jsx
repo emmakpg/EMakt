@@ -49,7 +49,7 @@ export default function Sidebar({isVisible,toggleSidebar}) {
   };
   
   return (
-    <div className={`sm:block bg-slate-700 space-y-6 h-screen w-64 mt-20 sm:mt-0 text-slate-50 p-3 fixed left-0 top-0 transition-transform duration-300 z-30 overflow-y-auto
+    <div className={`sm:block dark:bg-slate-800 bg-slate-700 space-y-6 h-screen w-64 mt-20 sm:mt-0 text-slate-50 p-3 fixed left-0 top-0 transition-transform duration-300 z-30 overflow-y-auto
       ${
         !isVisible ? 'lg:hidden -translate-x-[100%] md:translate-x-0' : ''
       }`
@@ -100,13 +100,13 @@ export default function Sidebar({isVisible,toggleSidebar}) {
               catalogueList.map((item,i) => (
                 <Link key={i}
           href={item.href} 
-          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors text-sm py-1.5
+          className={`flex items-center space-x-3 p-2 hover:bg-slate-800 rounded transition-colors text-sm py-1
            ${pathname.includes(item.href)
               ? 'bg-slate-800 rounded text-green-500'
               : 'text-slate-50 flex items-center'
             }
           `}>
-        <Ellipsis className="w-4 h-4" />
+        <Ellipsis className="w-2 h-2" />
         <span>{item.title}</span>
         </Link>
 

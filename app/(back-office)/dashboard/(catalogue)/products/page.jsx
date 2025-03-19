@@ -1,8 +1,10 @@
-import React from 'react'
+import Heading from "@/components/backoffice/Heading";
 
 export const Products = () => {
   return (
-    <div>Products</div>
+    <div>
+         <Heading title='Products'/>
+    </div>
   )
 }
 
