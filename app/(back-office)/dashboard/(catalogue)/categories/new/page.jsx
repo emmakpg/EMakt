@@ -1,20 +1,33 @@
 "use client"
 
 import FormHeader from '@/components/backoffice/FormHeader'
+import ImageInput from '@/components/FormInputs/ImageInput'
 import SubmitButton from '@/components/FormInputs/SubmitButton'
 import TextareaInput from '@/components/FormInputs/TextAreaInput'
 import TextInput from '@/components/FormInputs/TextInput'
 import { generateSlug } from '@/lib/generateslug'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function NewCategory() {
 
+const [loading,setLoading] = useState(false)
 const {register,handleSubmit,formState:{errors}} = useForm()
+const [imageUrl,setImageUrl] = useState("")
 
 async function onSubmit (data) {
 
+   {/* 
+        -id => auto
+        -title
+        -slug => auto
+        -description
+        -image*/
+      }
+      
   const slug = generateSlug(data.title)
   data.slug = slug
+  data.imageUrl = imageUrl
   console.log(data);
   
   
@@ -44,6 +57,13 @@ async function onSubmit (data) {
          errors={errors}
          />
 
+        <ImageInput
+        label="Category Image"
+        imageUrl={imageUrl}
+        setImageUrl={setImageUrl}
+        endpoint='ImageUploader'
+        />
+
          <SubmitButton 
          buttonTitle="Create Category"
          isLoading={false}
@@ -55,13 +75,7 @@ async function onSubmit (data) {
       </form>
  
 
-         {/* 
-        -id 
-        -title
-        -slug
-        -description
-        -image*/}
-      
+        
 
         </div>
      
