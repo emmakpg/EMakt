@@ -5,9 +5,9 @@ export async function POST(request) {
 
     try {
 
-        const {name,slug,description,code,expiryDate} = await request.json()
+        const {name,description,code,expiryDate} = await request.json()
 
-        const newCoupon = {name,slug,description,code,expiryDate}
+        const newCoupon = {name,description,code,expiryDate}
 
         console.log(newCoupon);
         

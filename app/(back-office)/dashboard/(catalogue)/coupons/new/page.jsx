@@ -4,33 +4,44 @@ import FormHeader from '@/components/backoffice/FormHeader'
 import SubmitButton from '@/components/FormInputs/SubmitButton'
 import TextareaInput from '@/components/FormInputs/TextAreaInput'
 import TextInput from '@/components/FormInputs/TextInput'
-import { generateSlug } from '@/lib/generateslug'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { makePostRequest } from '@/lib/apiRequest'
+import {generateCouponCode} from '@/lib/generateCouponCode'
 
 export default function NewCoupon() {
+
 
 const [loading,setLoading] = useState(false)
 const {register,reset,handleSubmit,formState:{errors}} = useForm()
 
+const [couponName, setCouponName] = useState("");
+const [expiryDate, setExpiryDate] = useState("");
+const [couponCode, setCouponCode] = useState("");
+
+
+// Automatically update coupon code when name or date changes
+useEffect(() => {
+  setCouponCode(generateCouponCode(couponName, expiryDate));
+}, [couponName, expiryDate]); // Runs every time couponName or expiryDate changes
 
 async function onSubmit (data) {
 
    {/* 
         -id => auto
         -name
-        -slug => auto
         -code
         -description
         -expiryDate
         */
       }
       
-  const slug = generateSlug(data.name)
-  data.slug = slug
+
   console.log(data);
   makePostRequest(setLoading,"/api/coupons",data,"Coupon",reset) 
+  setCouponCode("")
+  setExpiryDate("")
+  setCouponName("")
 
   
    
@@ -51,15 +62,18 @@ async function onSubmit (data) {
          name="name"
          register={register}
          errors={errors}
+         onChange={(e) =>  setCouponName(e.target.value)}
          />
 
       
         <TextInput
          label="Coupon Code"
          name="code"
+         defaultValue={couponCode}
+         readOnly={true}
          register={register}
          errors={errors}
-         className='w-full'
+         className='w-full text-gray-500'
          />
 
         <TextInput
@@ -68,6 +82,7 @@ async function onSubmit (data) {
          type='date'
          register={register}
          errors={errors}
+         onChange={(e) => setExpiryDate(e.target.value)}
         className='w-full'
          /> 
         
@@ -86,7 +101,7 @@ async function onSubmit (data) {
          <SubmitButton 
          buttonTitle="Create Category"
          isLoading={false}
-          loadingButtonTitle="Creating Coupon please wait...."
+        loadingButtonTitle="Creating Coupon please wait...."
 
          />
       </div>
