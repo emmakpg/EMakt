@@ -10,7 +10,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { makePostRequest } from '@/lib/apiRequest'
 
-export default function NewCategory() {
+export default function NewBanner() {
 
 const [loading,setLoading] = useState(false)
 const {register,reset,handleSubmit,formState:{errors}} = useForm()
@@ -21,16 +21,14 @@ async function onSubmit (data) {
    {/* 
         -id => auto
         -title
-        -slug => auto
-        -description
+        -link
         -image*/
       }
       
-  const slug = generateSlug(data.title)
-  data.slug = slug
+ 
   data.imageUrl = imageUrl
   console.log(data);
-  makePostRequest(setLoading,"/api/categories",data,"Category",reset) 
+  makePostRequest(setLoading,"/api/banners",data,"Banner",reset) 
   setImageUrl("")
   
    
@@ -38,7 +36,7 @@ async function onSubmit (data) {
 
   return (
     <div>
-      <FormHeader title="New Category"/>
+      <FormHeader title="New Banner"/>
 
       <form onSubmit={handleSubmit(onSubmit)}
       className='w-full max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8
@@ -47,30 +45,30 @@ async function onSubmit (data) {
       <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
 
         <TextInput
-         label="Category Title"
+         label="Banner Title"
          name="title"
          register={register}
          errors={errors}
          />
 
-        <TextareaInput
-         label="Category Description"
-         name="Category description"
+        <TextInput
+         label="Banner Link"
+         name="link"
          register={register}
          errors={errors}
          />
 
         <ImageInput
-        label="Category Image"
+        label="Banner Image"
         imageUrl={imageUrl}
         setImageUrl={setImageUrl}
-        endpoint='categoryImageUploader'
+        endpoint='ImageUploader'
         />
 
          <SubmitButton 
-         buttonTitle="Create Category"
+         buttonTitle="Create Banner"
          isLoading={false}
-          loadingButtonTitle="Creating Category please wait...."
+          loadingButtonTitle="Creating Banner please wait...."
 
          />
       </div>

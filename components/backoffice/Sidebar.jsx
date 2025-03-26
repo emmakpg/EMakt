@@ -28,15 +28,11 @@ export default function Sidebar({isVisible,toggleSidebar}) {
       href:"/dashboard/categories",
     },
     {
-      title:"Attributes",
-      href:"/dashboard/attributes",
-    },
-    {
       title:"Coupons",
       href:"/dashboard/coupons",
     },
     {
-      title:"Store sliders",
+      title:"Store Banners",
       href:"/dashboard/banners",
     },
   ]
