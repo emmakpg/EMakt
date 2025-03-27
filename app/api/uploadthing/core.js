@@ -38,4 +38,21 @@ export const ourFileRouter = {
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
       return { uploadedBy: metadata.userId };
     }),
+
+    bannerImageUploader: f({
+      image: {
+      
+        maxFileSize: "5MB",
+        maxFileCount: 1,
+      },
+    })
+      .middleware(async ({ req }) => {
+        const user = await auth(req);
+        if (!user) throw new UploadThingError("Unauthorized");
+        return { userId: user.id };
+      })
+      .onUploadComplete(async ({ metadata, file }) => {
+       
+        return { uploadedBy: metadata.userId };
+      }),
 };

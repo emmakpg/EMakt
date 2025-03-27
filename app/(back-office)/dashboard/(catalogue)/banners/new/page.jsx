@@ -49,6 +49,7 @@ async function onSubmit (data) {
          name="title"
          register={register}
          errors={errors}
+         className='w-full'
          />
 
         <TextInput
@@ -56,13 +57,14 @@ async function onSubmit (data) {
          name="link"
          register={register}
          errors={errors}
+         className='w-full'
          />
 
         <ImageInput
         label="Banner Image"
         imageUrl={imageUrl}
         setImageUrl={setImageUrl}
-        endpoint='ImageUploader'
+        endpoint='bannerImageUploader'
         />
 
          <SubmitButton 

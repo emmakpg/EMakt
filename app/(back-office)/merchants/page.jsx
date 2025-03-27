@@ -1,8 +1,28 @@
-import React from 'react'
-import Heading from '@/components/backoffice/Heading'
+import PageHeader from "@/components/backoffice/PageHeader";
+import TableActions from "@/components/backoffice/TableActions";
 
-export default function Merchants() {
+
+
+
+export const Merchants = () => {
   return (
-   <Heading title="Merchants"/>
+    <div className="dark:text-slate-50">
+          {/* Header */}
+      <PageHeader 
+      linkTitle="Add Merchant"
+      heading="Coupons"
+      href="/merchants/new"
+      />
+
+      {/*Table Actions  */}
+      <TableActions/>
+      
+      <div className="py-8"> 
+
+      </div>
+       
+    </div>
   )
 }
+
+export default Merchants; 

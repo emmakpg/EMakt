@@ -55,7 +55,7 @@ async function onSubmit (data) {
 
         <TextareaInput
          label="Category Description"
-         name="Category description"
+         name="description"
          register={register}
          errors={errors}
          />
