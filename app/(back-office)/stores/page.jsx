@@ -1,8 +1,28 @@
-import Heading from '@/components/backoffice/Heading'
-import React from 'react'
+import PageHeader from "@/components/backoffice/PageHeader";
+import TableActions from "@/components/backoffice/TableActions";
 
-export default function Stores() {
+
+
+
+export const Stores = () => {
   return (
-    <Heading title="Stores"/>
+    <div className="dark:text-slate-50">
+          {/* Header */}
+      <PageHeader 
+      linkTitle="Add Store"
+      heading="Stores"
+      href="/stores/new"
+      />
+
+      {/*Table Actions  */}
+      <TableActions/>
+      
+      <div className="py-8"> 
+
+      </div>
+       
+    </div>
   )
 }
+
+export default Stores; 

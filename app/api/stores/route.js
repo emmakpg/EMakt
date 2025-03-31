@@ -1,22 +1,23 @@
+
 import { NextResponse } from "next/server"
 
 export async function POST(request) {
 
     try {
 
-        const {title,storeId,slug,imageUrl,description} = await request.json()
+        const {name,slug,description,logoUrl} = await request.json()
 
-        const newCategory = {title,storeId,slug,imageUrl,description}
+        const addStore = {name,slug,description,logoUrl}
 
-        console.log(newCategory);
+        console.log(addStore);
         
-        return NextResponse.json(newCategory)
+        return NextResponse.json(addStore)
         
     } catch (error) {
         console.log(error);
         return NextResponse.json(
             {
-                message:"Failed to create Category",
+                message:"Failed to add Store",
                 error,
             }, {status:500})
         

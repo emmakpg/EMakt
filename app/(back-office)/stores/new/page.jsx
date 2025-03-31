@@ -9,52 +9,36 @@ import { generateSlug } from '@/lib/generateslug'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { makePostRequest } from '@/lib/apiRequest'
-import SelectInput from '@/components/FormInputs/SelectInput'
 
-export default function NewCategory() {
+export default function NewStore() {
 
 const [loading,setLoading] = useState(false)
 const {register,reset,handleSubmit,formState:{errors}} = useForm()
-const [imageUrl,setImageUrl] = useState("")
-
-const stores = [
-  {
-    id:1,
-    title:"Items GH"
-  },
-  {
-    id:2,
-    title:"Riri Catering"
-  },
-  {
-    id:3,
-    title:"Happy Collections"
-  },
-]
+const [logoUrl,setLogoUrl] = useState("")
 
 async function onSubmit (data) {
 
    {/* 
         -id => auto
-        -title
+        -name
         -slug => auto
         -description
-        -image*/
+        -logo*/
       }
       
-  const slug = generateSlug(data.title)
+  const slug = generateSlug(data.name)
   data.slug = slug
-  data.imageUrl = imageUrl
+  data.logoUrl = logoUrl
   console.log(data);
-  makePostRequest(setLoading,"/api/categories",data,"Category",reset) 
-  setImageUrl("")
+  makePostRequest(setLoading,"/api/stores",data,"Store",reset) 
+  setLogoUrl("")
   
    
 }
 
   return (
     <div>
-      <FormHeader title="New Category"/>
+      <FormHeader title="New Store"/>
 
       <form onSubmit={handleSubmit(onSubmit)}
       className='w-full max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8
@@ -63,41 +47,30 @@ async function onSubmit (data) {
       <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
 
         <TextInput
-         label="Category Title"
-         name="title"
+         label="Store Name"
+         name="name"
          register={register}
          errors={errors}
-         className='w-full'
-         />
-
-        <SelectInput
-         label="Select Store"
-         name="storeId"
-         register={register}
-         errors={errors}
-         options={stores}
-         multiple={false}
-         className='w-full'
          />
 
         <TextareaInput
-         label="Category Description"
+         label="Store Description"
          name="description"
          register={register}
          errors={errors}
          />
 
         <ImageInput
-        label="Category Image"
-        imageUrl={imageUrl}
-        setImageUrl={setImageUrl}
-        endpoint='categoryImageUploader'
+        label="Store Logo"
+        imageUrl={logoUrl}
+        setImageUrl={setLogoUrl}
+        endpoint='storeLogoUploader'
         />
 
          <SubmitButton 
-         buttonTitle="Create Category"
+         buttonTitle="Add Store"
          isLoading={false}
-          loadingButtonTitle="Creating Category please wait...."
+          loadingButtonTitle="Adding Store please wait...."
 
          />
       </div>
