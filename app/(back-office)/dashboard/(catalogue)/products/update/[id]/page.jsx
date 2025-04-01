@@ -1,10 +1,10 @@
 import Heading from '@/components/backoffice/Heading'
 import React from 'react'
 
-export default function UpdateCategory() {
+export default function UpdateProduct() {
   return (
     <div>
-        <Heading title="UpdateCategory"/>
+        <Heading title="UpdateProduct"/>
     </div>
   )
 }
